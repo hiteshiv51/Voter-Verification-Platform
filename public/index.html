@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <title>Voter Verification Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>Voter Verification Platform</h1>
+    <p class="tagline">
+        A privacy-first decision-support platform for electoral integrity
+    </p>
+    
+
+    <nav>
+        <a href="index.html" id="navIndex">Home</a> |
+        <a href="dashboard.html" id="navDashboard">Dashboard</a> |
+        <a href="flagged-records.html" id="navFlagged">Flagged Records</a> |
+        <a href="verification.html" id="navVerify">Verification</a> |
+        <a href="privacy.html" id="navPrivacy">Privacy</a> |
+        <button id="loginBtn" class="nav-login-btn">Login / Signup</button>
+        <button id="logoutBtn" class="nav-login-btn" style="display:none;">Logout</button>
+    </nav>
+</header>
+<script type="module" src="js/navbar-auth.js"></script>
+
+<!-- ================= SLIDESHOW ================= -->
+<section class="slideshow-container">
+    <div class="slide active">
+        <div class="slide-image">
+            <img src="images/analyze.png" alt="Analyze">
+        </div>
+        <div class="slide-text">
+            <h2>Analyze</h2>
+            <p><b>Study demographic and electoral patterns.</b></p>
+            <p><b>The system consolidates demographic information, historical electoral data, and booth-level statistics to form a comprehensive baseline of voter distribution across regions. By examining population trends and past participation patterns, the platform provides a clear contextual understanding of how voter rolls should reasonably align with ground realities. This analytical foundation ensures that subsequent observations are evaluated against reliable, data-backed expectations rather than isolated figures.</b></p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-image">
+            <img src="images/Detect.png" alt="Detect">
+        </div>
+        <div class="slide-text">
+            <h2>Detect</h2>
+            <p><b>Identify inconsistencies using confidence-based indicators.</b></p>
+            <p><b>Building on the analytical baseline, the platform identifies localized deviations that may require attention. These include unusually high or low voter counts, extended periods of inactivity, or discrepancies observed at the polling booth level. Detection is performed using confidence-based indicators that surface potential inconsistencies without making automated determinations. All findings are presented as insights intended to assist officials, not as final conclusions.</b></p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="slide-image">
+            <img src="images/verify.png" alt="Verify">
+        </div>
+        <div class="slide-text">
+            <h2>Verify</h2>
+            <p><b>Enable authorized officials to review flagged records</b></p>
+            <p><b>Flagged records and observations are presented through a structured review interface designed for authorized election officials. The system supports careful manual examination by displaying relevant contextual data alongside each case. Verification decisions remain entirely human-led, ensuring accountability and transparency throughout the process. This approach preserves institutional control while enhancing efficiency and accuracy through informed review.</b></p>
+        </div>
+    </div>
+
+    <button class="nav prev" onclick="prevSlide()">‹</button>
+    <button class="nav next" onclick="nextSlide()">›</button>
+</section>
+
+<!-- ================= FEATURE CARDS ================= -->
+<section class="card-grid">
+    <div class="card"><h3>Eligibility Estimation</h3>
+    <p>The system estimates expected voter counts by combining demographic indicators, population data, and historical participation trends. This provides a realistic reference point to assess whether existing voter rolls align with ground-level demographics.</p>
+    </div>
+    <div class="card"><h3>Deceased Record Flagging</h3>
+    <p>The system estimates expected voter counts by combining demographic indicators, population data, and historical participation trends. This provides a realistic reference point to assess whether existing voter rolls align with ground-level demographics.</p></div>
+    <div class="card"><h3>Booth-Level Analysis</h3>
+    <p>Voter data is examined at the polling booth level to identify localized discrepancies that may not be visible at higher administrative levels. This granular view helps officials focus attention on specific areas where inconsistencies are more likely to occur.</p></div>
+    <div class="card"><h3>Human Verification</h3>
+    <p>All flagged insights are routed through a structured interface designed for manual review by authorized officials. The system supports informed decision-making while ensuring that no voter record is modified without explicit human approval.</p></div>
+</section>
+
+<!-- ================= LOGIN / SIGNUP MODAL ================= -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+
+        <h2 id="modalTitle">Login</h2>
+
+        <form id="authForm">
+            <label>User Role</label>
+            <select id="role">
+                <option value="">Select role</option>
+                <option value="Election Authority">Election Authority</option>
+                <option value="Technical Staff">Technical Staff</option>
+                <option value="Citizen">Citizen</option>
+            </select>
+
+            <label>Email</label>
+            <input type="email" id="email" required>
+
+            <label>Password</label>
+            <input type="password" id="password" required>
+
+            <button type="submit" id="authBtn">Login</button>
+        </form>
+
+        <div class="signup-text">
+            <span id="toggleText">New user?</span>
+            <a href="#" id="toggleAuth">Create account</a>
+        </div>
+    </div>
+</div>
+
+<!-- ================= ABOUT US ================= -->
+<section class="about-us">
+    <h2>About the Platform</h2>
+    <p><strong>Data-driven insights</strong> to improve electoral roll accuracy. And <strong>Human verification</strong> with a privacy-first approach .</p>
+    <p><strong>This platform is a decision-support system designed to help election officials improve the accuracy of electoral rolls through data-driven insights. It highlights potential inconsistencies using demographic and booth-level analysis while ensuring that all final decisions remain human-led.
+
+Built with a privacy-first approach, the system does not modify voter records automatically. Instead, it supports transparent and informed verification, strengthening trust and accountability in the electoral process.</strong></p>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <p>Privacy · Transparency · Accountability</p>
+</footer>
+
+<!-- ================= SLIDESHOW JS ================= -->
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(i) {
+    slides.forEach(s => s.classList.remove("active"));
+    slides[i].classList.add("active");
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+</script>
+
+<!-- ================= FIREBASE AUTH ================= -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDzphuLvs9hmQec6B38J-W01MdPtoIauYY",
+  authDomain: "voter-eligiblity-system.firebaseapp.com",
+  projectId: "voter-eligiblity-system",
+  appId: "1:564125568994:web:fb6734e28da979f85473bb"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// UI Elements
+const modal = document.getElementById("loginModal");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const closeBtn = document.querySelector(".close-btn");
+
+const authForm = document.getElementById("authForm");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const roleSelect = document.getElementById("role");
+
+const toggleAuth = document.getElementById("toggleAuth");
+const modalTitle = document.getElementById("modalTitle");
+const authBtn = document.getElementById("authBtn");
+const toggleText = document.getElementById("toggleText");
+
+// Modal control
+loginBtn.onclick = () => modal.style.display = "block";
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+
+// Toggle Login / Signup
+let isSignup = false;
+toggleAuth.onclick = (e) => {
+    e.preventDefault();
+    isSignup = !isSignup;
+    modalTitle.innerText = isSignup ? "Create Account" : "Login";
+    authBtn.innerText = isSignup ? "Sign Up" : "Login";
+    toggleText.innerText = isSignup ? "Already have an account?" : "New user?";
+    toggleAuth.innerText = isSignup ? "Login" : "Create account";
+};
+
+// Auth submit
+authForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const role = roleSelect.value;
+
+    if (!email || !password) {
+        alert("Enter email and password");
+        return;
+    }
+
+    try {
+        if (isSignup) {
+            if (!role) return alert("Select a role");
+            const cred = await createUserWithEmailAndPassword(auth, email, password);
+            await setDoc(doc(db, "users", cred.user.uid), { email, role });
+            alert("Account created. Please login.");
+            isSignup = false;
+            modalTitle.innerText = "Login";
+            authBtn.innerText = "Login";
+            toggleText.innerText = "New user?";
+            toggleAuth.innerText = "Create account";
+        } else {
+            const cred = await signInWithEmailAndPassword(auth, email, password);
+            const userDoc = await getDoc(doc(db, "users", cred.user.uid));
+            const userRole = userDoc.exists() ? userDoc.data().role : "";
+
+            if (userRole === "Citizen") {
+                window.location.href = "privacy.html";
+            } else {
+                window.location.href = "dashboard.html";
+            }
+        }
+    } catch (err) {
+        alert(err.message);
+    }
+};
+
+// Logout
+logoutBtn.onclick = () => {
+    signOut(auth);
+    window.location.href = "index.html";
+};
+
+// Auth state
+onAuthStateChanged(auth, user => {
+    if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

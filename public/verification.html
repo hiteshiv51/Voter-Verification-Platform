@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification | Voter Verification Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="verification.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>📝 Verification</h1>
+    <p>Authorized human review and validation</p>
+
+    <nav>
+         <a href="index.html">Home</a> |
+        <a href="dashboard.html">Dashboard</a> |
+        <a href="verification.html">Verification</a> |
+        <a href="flagged_records.html">Flagged Records</a> |
+        <a href="privacy.html">Privacy</a> |
+        <a href="#" id="logoutBtn">Logout</a>
+    </nav>
+</header>
+
+<!-- ================= VERIFICATION FORM ================= -->
+<section class="verification-box">
+
+    <h2>Verify Voter Record</h2>
+
+    <form>
+        <label>Voter ID</label>
+        <input type="text" placeholder="Enter voter ID">
+
+        <label>Booth ID</label>
+        <input type="text" placeholder="Enter booth ID">
+
+        <label>Verification Status</label>
+        <select>
+            <option value="">Select status</option>
+            <option>Verified</option>
+            <option>Needs Field Check</option>
+            <option>False Positive</option>
+        </select>
+
+        <label>Remarks</label>
+        <textarea rows="4" placeholder="Add verification remarks"></textarea>
+
+        <button type="submit">Submit Verification</button>
+    </form>
+
+</section>
+
+<!-- ================= INFO NOTE ================= -->
+<section class="info-note">
+    <p>
+        This system provides decision-support only.  
+        All verification outcomes require human judgment and do not automatically
+        modify voter records.
+    </p>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <p>
+        Decision-Support System · Advisory Only<br>
+        Privacy · Transparency · Accountability
+    </p>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Voter Verification Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <!-- ================= ACCESS CONTROL ================= -->
+    <!-- <script>
+        const loggedIn = localStorage.getItem("loggedIn");
+        const role = localStorage.getItem("role");
+
+        if (loggedIn !== "true") {
+            window.location.href = "index.html";
+        }
+
+        if (role === "citizen") {
+            alert("Access denied. Dashboard is restricted to authorized officials.");
+            window.location.href = "index.html";
+        }
+    </script> -->
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>📊 Dashboard</h1>
+    <p>Booth-level analytics and discrepancy overview</p>
+
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="dashboard.html">Dashboard</a> |
+        <a href="verification.html">Verification</a> |
+        <a href="flagged_records.html">Flagged Records</a> |
+        <a href="privacy.html">Privacy</a> |
+        <a href="#" id="logoutBtn">Logout</a>
+    </nav>
+</header>
+
+<!-- ================= WELCOME ================= -->
+<section class="welcome-box">
+    <h2>Welcome</h2>
+    <p id="roleText"></p>
+</section>
+
+<!-- ================= ANALYTICS CARDS ================= -->
+<section class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Total Booths</h3>
+        <p class="stat-number">124</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Registered Voters</h3>
+        <p class="stat-number">1,42,380</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Estimated Eligible</h3>
+        <p class="stat-number">1,18,200</p>
+    </div>
+
+    <div class="stat-card highlight">
+        <h3>Flagged Records</h3>
+        <p class="stat-number">312</p>
+    </div>
+
+</section>
+
+<!-- ================= TABLE ================= -->
+<section>
+    <h2>Booth Summary</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Booth ID</th>
+                <th>Registered</th>
+                <th>Estimated Eligible</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>BOOTH-017</td>
+                <td>1,220</td>
+                <td>930</td>
+                <td class="high">High Discrepancy</td>
+            </tr>
+            <tr>
+                <td>BOOTH-044</td>
+                <td>980</td>
+                <td>960</td>
+                <td class="low">Normal</td>
+            </tr>
+            <tr>
+                <td>BOOTH-091</td>
+                <td>1,110</td>
+                <td>870</td>
+                <td class="medium">Needs Review</td>
+            </tr>
+            <tr>
+                <td>BOOTH-0123</td>
+                <td>1,810</td>
+                <td>470</td>
+                <td class="medium">Needs Review</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <p>
+        Decision-Support Dashboard · Advisory Only<br>
+        Privacy · Transparency · Accountability
+    </p>
+</footer>
+
+<!-- ================= LOGOUT SCRIPT ================= -->
+<!-- <script>
+    const roleText = document.getElementById("roleText");
+    const userRole = localStorage.getItem("role");
+
+    if (userRole === "authority") {
+        roleText.textContent = "Role: Election Authority";
+    } else if (userRole === "tech") {
+        roleText.textContent = "Role: Technical Staff";
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "index.html";
+    });
+</script> -->
+
+</body>
+</html>

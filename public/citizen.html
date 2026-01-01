@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Citizen Access</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>Citizen Access</h1>
+    <p>Limited, read-only account view</p>
+</header>
+
+<!-- ================= CITIZEN DETAILS ================= -->
+<section class="highlight-text">
+    <p><strong>Account Details</strong></p>
+    <p>Email: <span id="userEmail">Loading...</span></p>
+    <p>Role: Citizen</p>
+    <p>Status: Active</p>
+</section>
+
+<!-- ================= NOTICE ================= -->
+<section class="highlight-text subtle">
+    <p>
+        <strong>Notice</strong><br>
+        Confidential electoral analytics, voter records, and verification tools
+        are accessible only to authorized election authorities.
+    </p>
+</section>
+
+<!-- ================= LOGOUT ================= -->
+<section class="highlight-text">
+    <button id="logoutBtn">Logout</button>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <p>Transparency · Privacy · Responsible Access</p>
+</footer>
+
+<!-- ================= AUTH GUARD + LOGOUT ================= -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+/* ================= FIREBASE CONFIG ================= */
+const firebaseConfig = {
+    apiKey: "AIzaSyDzphuLvs9hmQec6B38J-W01MdPtoIauYY",
+    authDomain: "voter-eligiblity-system.firebaseapp.com",
+    projectId: "voter-eligiblity-system",
+    appId: "1:564125568994:web:fb6734e28da979f85473bb"
+};
+
+/* ================= INIT APP ================= */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const emailSpan = document.getElementById("userEmail");
+const logoutBtn = document.getElementById("logoutBtn");
+
+/* ================= AUTH GUARD ================= */
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        // Not logged in → redirect to home
+        window.location.href = "index.html";
+        return;
+    }
+
+    // Fetch role from Firestore
+    const snap = await getDoc(doc(db, "users", user.uid));
+    const role = snap.exists() ? snap.data().role : "";
+
+    // Enforce Citizen-only access
+    if (role !== "Citizen") {
+        alert("You are not authorized to access this page.");
+        window.location.href = "index.html";
+        return;
+    }
+
+    // Display citizen info
+    emailSpan.innerText = user.email;
+});
+
+/* ================= LOGOUT ================= */
+logoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            window.location.href = "index.html";
+        })
+        .catch(error => {
+            alert("Logout failed: " + error.message);
+        });
+});
+</script>
+
+</body>
+</html>

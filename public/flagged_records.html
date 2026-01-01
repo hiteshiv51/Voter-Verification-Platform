@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flagged Records | Voter Verification Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flagged_records.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>🚩 Flagged Records</h1>
+    <p>Confidence-based identification of potential inconsistencies</p>
+
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="dashboard.html">Dashboard</a> |
+        <a href="verification.html">Verification</a> |
+        <a href="flagged_records.html">Flagged Records</a> |
+        <a href="privacy.html">Privacy</a> |
+        <a href="#" id="logoutBtn">Logout</a>
+    </nav>
+</header>
+
+<!-- ================= SUMMARY STRIP ================= -->
+<section class="summary-strip">
+    <p>
+        Records shown here are advisory only and require human verification.
+    </p>
+</section>
+
+<!-- ================= TABLE SECTION ================= -->
+<section class="table-section">
+    <h2>Flagged Voter Records</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Voter ID</th>
+                <th>Booth ID</th>
+                <th>Reason</th>
+                <th>Confidence</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>VT-10234</td>
+                <td>BOOTH-017</td>
+                <td>Age anomaly</td>
+                <td class="high">92%</td>
+                <td class="pending">Pending Review</td>
+            </tr>
+
+            <tr>
+                <td>VT-11890</td>
+                <td>BOOTH-044</td>
+                <td>Long inactivity</td>
+                <td class="medium">78%</td>
+                <td class="pending">Pending Review</td>
+            </tr>
+
+            <tr>
+                <td>VT-13021</td>
+                <td>BOOTH-091</td>
+                <td>Data mismatch</td>
+                <td class="low">64%</td>
+                <td class="reviewed">Reviewed</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ================= INFO NOTE ================= -->
+<section class="info-note">
+    <p>
+        Flagging does not imply invalidity.  
+        All records must be manually reviewed by authorized officials.
+    </p>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <p>
+        Decision-Support System · Advisory Only<br>
+        Privacy · Transparency · Accountability
+    </p>
+</footer>
+
+
+</body>
+</html>
+
+
+
+
+
