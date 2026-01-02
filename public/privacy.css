@@ -81,7 +81,7 @@ nav a:hover {
 .privacy-section ul {
     margin-left: 20px;
     margin-bottom: 14px;
-}
+}m
 
 .privacy-section li {
     margin-bottom: 10px;
@@ -125,20 +125,4 @@ footer {
         margin: 40px 14px;
         padding: 28px 22px;
     }
-}
-/* ================= SIGNUP TEXT ================= */
-.signup-text {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.signup-text a {
-    color: #4f46e5;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.signup-text a:hover {
-    text-decoration: underline;
 }

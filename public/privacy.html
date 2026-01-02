@@ -8,6 +8,65 @@
 </head>
 
 <body>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDzphuLvs9hmQec6B38J-W01MdPtoIauYY",
+  authDomain: "voter-eligiblity-system.firebaseapp.com",
+  projectId: "voter-eligiblity-system"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// navbar links
+const dashboardLink = document.getElementById("dashboardLink");
+const verificationLink = document.getElementById("verificationLink");
+const flaggedLink = document.getElementById("flaggedLink");
+
+// hide by default
+function hideConfidential() {
+  if (dashboardLink) dashboardLink.style.display = "none";
+  if (verificationLink) verificationLink.style.display = "none";
+  if (flaggedLink) flaggedLink.style.display = "none";
+}
+
+// protect clicks
+function protect(link) {
+  if (!link) return;
+  link.addEventListener("click", (e) => {
+    if (!auth.currentUser) {
+      e.preventDefault();
+      alert("Please login to access confidential data.");
+    }
+  });
+}
+
+protect(dashboardLink);
+protect(verificationLink);
+protect(flaggedLink);
+
+// auth check
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    hideConfidential();
+    return;
+  }
+
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const role = snap.exists() ? snap.data().role : "";
+
+  if (role !== "Election Authority") {
+    hideConfidential();
+  }
+});
+</script>
 
 <!-- ================= HEADER ================= -->
 <header>
@@ -16,9 +75,10 @@
 
     <nav>
         <a href="index.html">Home</a> |
-        <a href="dashboard.html">Dashboard</a> |
-        <a href="verification.html">Verification</a> |
-        <a href="flagged_records.html">Flagged Records</a> |
+        <a href="dashboard.html" id="dashboardLink">Dashboard</a> |
+        <a href="verification.html" id="verificationLink">Verification</a> |
+        <a href="flagged_records.html" id="flaggedLink">Flagged Records</a> |
+
         <a href="privacy.html">Privacy</a> 
         
     </nav>

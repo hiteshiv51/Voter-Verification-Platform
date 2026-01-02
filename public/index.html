@@ -21,14 +21,14 @@
     <nav>
         <a href="index.html" id="navIndex">Home</a> |
         <a href="dashboard.html" id="navDashboard">Dashboard</a> |
-        <a href="flagged-records.html" id="navFlagged">Flagged Records</a> |
+        <a href="flagged_records.html" id="navFlagged">Flagged Records</a> |
         <a href="verification.html" id="navVerify">Verification</a> |
         <a href="privacy.html" id="navPrivacy">Privacy</a> |
         <button id="loginBtn" class="nav-login-btn">Login / Signup</button>
         <button id="logoutBtn" class="nav-login-btn" style="display:none;">Logout</button>
     </nav>
 </header>
-<script type="module" src="js/navbar-auth.js"></script>
+
 
 <!-- ================= SLIDESHOW ================= -->
 <section class="slideshow-container">
@@ -94,7 +94,7 @@
             <select id="role">
                 <option value="">Select role</option>
                 <option value="Election Authority">Election Authority</option>
-                <option value="Technical Staff">Technical Staff</option>
+                
                 <option value="Citizen">Citizen</option>
             </select>
 
@@ -229,7 +229,7 @@ authForm.onsubmit = async (e) => {
             const userRole = userDoc.exists() ? userDoc.data().role : "";
 
             if (userRole === "Citizen") {
-                window.location.href = "privacy.html";
+                window.location.href = "citizen.html";
             } else {
                 window.location.href = "dashboard.html";
             }
@@ -254,6 +254,30 @@ onAuthStateChanged(auth, user => {
         loginBtn.style.display = "inline-block";
         logoutBtn.style.display = "none";
     }
+});
+</script>
+<script>
+/* ================= PRE-LOGIN NAV PROTECTION ================= */
+document.addEventListener("DOMContentLoaded", () => {
+
+    const protectedLinks = [
+        document.getElementById("navDashboard"),
+        document.getElementById("navFlagged"),
+        document.getElementById("navVerify")
+    ];
+
+    protectedLinks.forEach(link => {
+        if (!link) return;
+
+        link.addEventListener("click", (e) => {
+            // Firebase auth object is available from module script
+            if (!window.firebaseAuthUser) {
+                e.preventDefault();
+                alert("Please login to access this page");
+                document.getElementById("loginModal").style.display = "block";
+            }
+        });
+    });
 });
 </script>
 

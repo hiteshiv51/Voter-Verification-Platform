@@ -15,7 +15,7 @@
     <p>Authorized human review and validation</p>
 
     <nav>
-         <a href="index.html">Home</a> |
+        <a href="index.html">Home</a> |
         <a href="dashboard.html">Dashboard</a> |
         <a href="verification.html">Verification</a> |
         <a href="flagged_records.html">Flagged Records</a> |
@@ -29,15 +29,16 @@
 
     <h2>Verify Voter Record</h2>
 
-    <form>
+    <form id="verificationForm">
+
         <label>Voter ID</label>
-        <input type="text" placeholder="Enter voter ID">
+        <input type="text" id="voterRef" placeholder="Enter voter ID" required>
 
         <label>Booth ID</label>
-        <input type="text" placeholder="Enter booth ID">
+        <input type="text" id="boothId" placeholder="Enter booth ID" required>
 
         <label>Verification Status</label>
-        <select>
+        <select id="status" required>
             <option value="">Select status</option>
             <option>Verified</option>
             <option>Needs Field Check</option>
@@ -45,7 +46,7 @@
         </select>
 
         <label>Remarks</label>
-        <textarea rows="4" placeholder="Add verification remarks"></textarea>
+        <textarea id="issue" rows="4" placeholder="Add verification remarks" required></textarea>
 
         <button type="submit">Submit Verification</button>
     </form>
@@ -69,6 +70,97 @@
     </p>
 </footer>
 
+<!-- ================= FIREBASE AUTH + DATA FEED ================= -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+/* ================= FIREBASE CONFIG ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyDzphuLvs9hmQec6B38J-W01MdPtoIauYY",
+  authDomain: "voter-eligiblity-system.firebaseapp.com",
+  projectId: "voter-eligiblity-system"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUserUID = null;
+
+/* ================= AUTH + ROLE GUARD ================= */
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    document.body.innerHTML =
+      "<h2 style='text-align:center;margin-top:120px;'>Please login to access this page.</h2>";
+    return;
+  }
+
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const role = snap.exists() ? snap.data().role.trim() : "";
+
+  if (role !== "Election Authority") {
+    document.body.innerHTML =
+      "<h2 style='text-align:center;margin-top:120px;'>Confidential data. Access restricted.</h2>";
+    return;
+  }
+
+  currentUserUID = user.uid;
+});
+
+/* ================= FORM SUBMIT ================= */
+const form = document.getElementById("verificationForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const voterRef = document.getElementById("voterRef").value.trim();
+  const boothId = document.getElementById("boothId").value.trim();
+  const status = document.getElementById("status").value;
+  const issue = document.getElementById("issue").value.trim();
+
+  if (!voterRef || !boothId || !status || !issue) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "verifications"), {
+      voterRef,
+      boothId,
+      status,
+      issue,
+      createdBy: currentUserUID,
+      createdAt: serverTimestamp()
+    });
+
+    alert("Verification record submitted successfully.");
+    form.reset();
+
+  } catch (err) {
+    alert("Error saving data: " + err.message);
+  }
+});
+
+/* ================= LOGOUT ================= */
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "index.html";
+});
+</script>
 
 </body>
 </html>

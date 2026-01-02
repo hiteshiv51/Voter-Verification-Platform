@@ -199,4 +199,10 @@ footer {
         margin: 40px 14px;
         padding: 24px;
     }
+}/* ===== FORCE DASHBOARD BACKGROUND TO WHITE ===== */
+.dashboard,
+.container,
+.main,
+body > div {
+    background: #ffffff !important;
 }

@@ -35,7 +35,7 @@ if (privacy) privacy.style.display = "inline-block";
 
 /* Auth state sync */
 onAuthStateChanged(auth, async (user) => {
-
+window.firebaseAuthUser = user;
     // Not logged in
     if (!user) {
         if (loginBtn) loginBtn.style.display = "inline-block";
@@ -56,9 +56,10 @@ onAuthStateChanged(auth, async (user) => {
         if (verify) verify.style.display = "inline-block";
     }
 
-    if (role === "Technical Staff") {
-        if (dashboard) dashboard.style.display = "inline-block";
-    }
+    
+     if (userRole === "Citizen") {
+    window.location.href = "citizen.html";
+} 
 
     // Citizen → no sensitive tabs
 });
